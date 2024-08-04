@@ -24,7 +24,18 @@ public class DAG {
 
         return new ArrayList<>(Arrays.asList(vertexA, vertexB, vertexC, vertexD, vertexE));
     }
+    private Vertex getVertexById(String id){
+        Optional<Vertex> vertex = vertices.stream().filter(v -> v.getId().equals(id)).findFirst();
+        return vertex.orElseThrow(() -> new NoSuchElementException("Vertex with ID " + id + " not found"));
+    }
     public List<String> getLongestDirectedPath(String startId){
-        return new ArrayList<String>();
+        Vertex start = getVertexById(startId);
+        Vertex end = getEndVertex();
+        ArrayList<String> longestPath = new ArrayList<>();
+        return longestPath;
+    }
+    private Vertex getEndVertex() {
+        Optional<Vertex> endVertex = vertices.stream().filter(v -> v.getEdges().isEmpty()).findFirst();
+        return endVertex.orElseThrow(() -> new NoSuchElementException("End Vertex not found"));
     }
 }
