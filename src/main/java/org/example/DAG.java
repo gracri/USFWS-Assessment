@@ -3,11 +3,9 @@ package org.example;
 import java.util.*;
 
 public class DAG {
-    public final Vertex root;
     private final List<Vertex> vertices;
     public DAG() {
         this.vertices = initializeDAG();
-        this.root = vertices.get(0);
     }
     private List<Vertex> initializeDAG(){
         var vertexA = new Vertex("a");
@@ -32,6 +30,33 @@ public class DAG {
         Vertex start = getVertexById(startId);
         Vertex end = getEndVertex();
         ArrayList<String> longestPath = new ArrayList<>();
+        Map<Vertex, Integer> distances = new HashMap<>();
+        Map<Vertex, Vertex> previous = new HashMap<>();
+        PriorityQueue<Vertex> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(distances::get));
+
+        for (Vertex vertex : vertices) {
+            distances.put(vertex, -1);
+            previous.put(vertex, null);
+        }
+        distances.put(start, 0);
+        priorityQueue.add(start);
+
+        while (!priorityQueue.isEmpty()) {
+            Vertex current = priorityQueue.poll();
+            for (Edge edge : current.getEdges()) {
+                Vertex next = edge.getTo();
+                int newDist = distances.get(current) + 1;
+                if (newDist > distances.get(next)) {
+                    distances.put(next, newDist);
+                    previous.put(next, current);
+                    priorityQueue.add(next);
+                }
+            }
+        }
+        for (Vertex vertex = end; vertex != null; vertex = previous.get(vertex)) {
+            longestPath.add(vertex.getId());
+        }
+        Collections.reverse(longestPath);
         return longestPath;
     }
     private Vertex getEndVertex() {
