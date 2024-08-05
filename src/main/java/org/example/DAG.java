@@ -27,6 +27,9 @@ public class DAG {
         return vertex.orElseThrow(() -> new NoSuchElementException("Vertex with ID " + id + " not found"));
     }
     public List<String> getLongestDirectedPath(String startId){
+        if (startId == null) {
+            throw new IllegalArgumentException("ID cannot be null");
+        }
         Vertex start = getVertexById(startId);
         Vertex end = getEndVertex();
         ArrayList<String> longestPath = new ArrayList<>();
