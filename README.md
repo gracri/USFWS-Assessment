@@ -38,7 +38,7 @@ This project implements a Directed Acyclic Graph (DAG) using Java. It includes t
 ### Running Tests
 
 To run the unit tests, use the following command if you are using Maven:
-    ```sh
+    ```
     mvn test
     ```
 Or run them from your preferred IDE.
@@ -47,7 +47,7 @@ Or run them from your preferred IDE.
 
 The Main.java class main method contains code which runs when the application is run. It creates a new DAG and prints the longest directed path from vertex "a" to the console.
 To run the application use the following command:
-    ```sh
+    ```
     mvn exec:java
     ```
 Or run the application from your IDE.
